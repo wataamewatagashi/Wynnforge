@@ -1,12 +1,16 @@
 package net.tiffit.wynnforge.support;
 
-import mezz.jei.api.*;
+import java.util.ArrayList;
+
+import mezz.jei.api.IJeiRuntime;
+import mezz.jei.api.IModPlugin;
+import mezz.jei.api.IModRegistry;
+import mezz.jei.api.IRecipeRegistry;
+import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.ingredients.IIngredientBlacklist;
 import mezz.jei.api.ingredients.IIngredientRegistry;
 import mezz.jei.api.recipe.IIngredientType;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
-
-import java.util.ArrayList;
 
 @JEIPlugin
 public class PluginJEI implements IModPlugin {
@@ -38,9 +42,12 @@ public class PluginJEI implements IModPlugin {
     	recipeReg.hideRecipeCategory(VanillaRecipeCategoryUid.CRAFTING);
     	recipeReg.hideRecipeCategory(VanillaRecipeCategoryUid.FUEL);
     	recipeReg.hideRecipeCategory(VanillaRecipeCategoryUid.SMELTING);
-    	for(IIngredientType type : ingredientRegistry.getRegisteredIngredientTypes()){
-    		ingredientRegistry.removeIngredientsAtRuntime(type, new ArrayList<>(ingredientRegistry.getAllIngredients(type)));
-    	}
+    	for(IIngredientType type : ingredientRegistry.getRegisteredIngredientTypes()) {
+			ArrayList ingredients = new ArrayList(ingredientRegistry.getAllIngredients(type));
+			if (!ingredients.isEmpty()) {
+				ingredientRegistry.removeIngredientsAtRuntime(type, ingredients);
+			}
+		}
     }
 	
 	
