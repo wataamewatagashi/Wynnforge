@@ -1,7 +1,6 @@
 # Wynnforge
 This repository was forked from tiffit's
-
-[Wynnforge]: https://github.com/tiffit/Wynnforge.
+[Wynnforge](https://github.com/tiffit/Wynnforge).
 
 
 
